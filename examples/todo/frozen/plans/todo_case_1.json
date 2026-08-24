@@ -1,0 +1,46 @@
+{
+  "case_id": "todo_case_1",
+  "input_digest": "62f72cfb60f1119fcf7f90ec31565c6d75c69d3e2b1efddf766d9ff4d7ee7066",
+  "schema_version": "harnesseval_c.skill_plan.v1",
+  "selected_skills": [
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "spec_coverage"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "runtime_behavior"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "api_contract"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "browser_flow"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "observation",
+      "skill_id": "code_quality"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "observation",
+      "skill_id": "convention_compliance"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "observation",
+      "skill_id": "diff_hygiene"
+    }
+  ],
+  "validation": {
+    "selection_modified": false,
+    "status": "ok"
+  }
+}

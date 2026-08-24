@@ -1,0 +1,33 @@
+{
+  "schema_version": "harnesseval_c.example_manifest.v1",
+  "judge_model": "example-json-judge",
+  "generator_config_digest": "fictional-example-generator-v1",
+  "cases": [
+    {
+      "case_id": "todo_case_1",
+      "spec_path": "specs/case_1.md",
+      "taxonomy": {"probe_family": "existing_feature_build"},
+      "model_facing": {
+        "task": "Implement the basic fictional task application described by the SPEC.",
+        "initial_observation": "A minimal empty web application is available.",
+        "resources": ["specs/case_1.md"]
+      },
+      "evaluation": {
+        "required_skills": ["spec_coverage", "runtime_behavior", "api_contract", "browser_flow"]
+      }
+    },
+    {
+      "case_id": "todo_case_2",
+      "spec_path": "specs/case_2.md",
+      "taxonomy": {"probe_family": "incremental_extension"},
+      "model_facing": {
+        "task": "Add priority and filtering while preserving the first case.",
+        "initial_observation": "The input snapshot is the subject's own Case 1 result.",
+        "resources": ["specs/case_2.md"]
+      },
+      "evaluation": {
+        "required_skills": ["spec_coverage", "runtime_behavior", "api_contract", "browser_flow", "regression_guard"]
+      }
+    }
+  ]
+}

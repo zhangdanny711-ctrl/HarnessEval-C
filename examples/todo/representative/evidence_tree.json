@@ -1,0 +1,332 @@
+{
+  "case_id": "todo_case_2",
+  "evidence_digest": "185e2e7f0374e4d8f514ad7d2f72a67a0b7f55215bd9c17a491583af7890a65f",
+  "frozen_inputs": {
+    "plan_digest": "37bec480f031703da15d1a2f78a86f469c23994b47d9e6f468def5fe2a147bc7",
+    "preregistration_digest": "3dbf4d5e3357651e90285bec0cbb869370eb3f30469dca7bbe2dd88e3e83146a"
+  },
+  "headline": {
+    "core_score": 1.0,
+    "evaluation_status": "valid",
+    "final_score": 1.0,
+    "observation_score": 1.0
+  },
+  "illustrative": true,
+  "notice": "Representative schema example only; not an agent evaluation result.",
+  "plan": [
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "spec_coverage"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "runtime_behavior"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "api_contract"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "browser_flow"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "core",
+      "skill_id": "regression_guard"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "observation",
+      "skill_id": "code_quality"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "observation",
+      "skill_id": "convention_compliance"
+    },
+    {
+      "reason": "Frozen coverage for the fictional Todo case",
+      "role": "observation",
+      "skill_id": "diff_hygiene"
+    }
+  ],
+  "schema_version": "harnesseval_c.evidence_tree.v1",
+  "skills": [
+    {
+      "diagnostics": {},
+      "evidence": {
+        "requirements": {
+          "R1": {
+            "passed": true,
+            "source": "illustrative"
+          },
+          "R2": {
+            "passed": true,
+            "source": "illustrative"
+          },
+          "R3": {
+            "passed": true,
+            "source": "illustrative"
+          }
+        }
+      },
+      "metrics": {
+        "requirement_pass_rate": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "spec_coverage",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "builds": [
+          {
+            "name": "syntax",
+            "passed": true
+          }
+        ],
+        "health": [
+          {
+            "name": "api",
+            "passed": true
+          },
+          {
+            "name": "web",
+            "passed": true
+          }
+        ],
+        "probes": [
+          {
+            "id": "create_priority",
+            "passed": true
+          },
+          {
+            "id": "filter_priority",
+            "passed": true
+          },
+          {
+            "id": "case1_replay",
+            "passed": true
+          }
+        ]
+      },
+      "metrics": {
+        "boot_ok": true,
+        "build_ok": true,
+        "deterministic_upper_bound": 1.0,
+        "probe_pass_rate": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "runtime_behavior",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "contracts": [
+          {
+            "checks": [
+              {
+                "check": "http_status",
+                "passed": true
+              },
+              {
+                "check": "envelope_fields",
+                "passed": true
+              },
+              {
+                "check": "equals:code",
+                "passed": true
+              },
+              {
+                "check": "equals:data.priority",
+                "passed": true
+              },
+              {
+                "check": "message_contains:created",
+                "passed": true
+              }
+            ],
+            "id": "create_priority",
+            "passed": true
+          },
+          {
+            "checks": [
+              {
+                "check": "http_status",
+                "passed": true
+              },
+              {
+                "check": "envelope_fields",
+                "passed": true
+              },
+              {
+                "check": "equals:code",
+                "passed": true
+              },
+              {
+                "check": "min_items",
+                "passed": true
+              }
+            ],
+            "id": "filter_priority",
+            "passed": true
+          }
+        ]
+      },
+      "metrics": {
+        "contract_pass_rate": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "api_contract",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "journeys": [
+          {
+            "action_pass_rate": 1.0,
+            "assertion_pass_rate": 1.0,
+            "journey_id": "J1",
+            "passed": true,
+            "steps": [
+              {
+                "kind": "goto",
+                "passed": true,
+                "url": "/"
+              },
+              {
+                "kind": "select",
+                "passed": true,
+                "selector": "[data-testid=priority]",
+                "value": "high"
+              },
+              {
+                "kind": "fill",
+                "passed": true,
+                "selector": "[data-testid=task-title]",
+                "value": "Ship release"
+              },
+              {
+                "kind": "click",
+                "passed": true,
+                "selector": "[data-testid=add-task]"
+              },
+              {
+                "kind": "select",
+                "passed": true,
+                "selector": "[data-testid=priority-filter]",
+                "value": "high"
+              },
+              {
+                "kind": "expect_text",
+                "passed": true,
+                "selector": "[data-testid=task-list]",
+                "text": "Ship release"
+              },
+              {
+                "kind": "expect_url",
+                "passed": true,
+                "url": "/?priority=high"
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "assertion_correctness": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "browser_flow",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "anchors": [
+          {
+            "id": "task_api_route",
+            "passed": true
+          }
+        ],
+        "replay": [
+          {
+            "id": "list",
+            "passed": true
+          },
+          {
+            "id": "create",
+            "passed": true
+          },
+          {
+            "id": "update",
+            "passed": true
+          }
+        ]
+      },
+      "metrics": {
+        "regression_pass_rate": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "regression_guard",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "notes": [
+          "illustrative review evidence"
+        ]
+      },
+      "metrics": {
+        "configured_conventions": 0
+      },
+      "role": "observation",
+      "score": 1.0,
+      "skill_id": "code_quality",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "notes": [
+          "illustrative review evidence"
+        ]
+      },
+      "metrics": {
+        "configured_conventions": 2
+      },
+      "role": "observation",
+      "score": 1.0,
+      "skill_id": "convention_compliance",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "notes": [
+          "illustrative review evidence"
+        ]
+      },
+      "metrics": {
+        "configured_conventions": 0
+      },
+      "role": "observation",
+      "score": 1.0,
+      "skill_id": "diff_hygiene",
+      "status": "ok"
+    }
+  ]
+}

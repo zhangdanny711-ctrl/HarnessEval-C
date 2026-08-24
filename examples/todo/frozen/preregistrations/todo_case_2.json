@@ -1,0 +1,166 @@
+{
+  "artifact_digest": "3dbf4d5e3357651e90285bec0cbb869370eb3f30469dca7bbe2dd88e3e83146a",
+  "case_id": "todo_case_2",
+  "components": {
+    "api_contract": {
+      "contracts": [
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "CREATED",
+              "data.priority": "high"
+            },
+            "http_status": 201,
+            "message_contains": [
+              "created"
+            ]
+          },
+          "id": "create_priority",
+          "method": "POST",
+          "path": "/api/tasks",
+          "request": {
+            "priority": "high",
+            "title": "Ship release"
+          }
+        },
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "OK"
+            },
+            "http_status": 200,
+            "items_path": "data",
+            "message_contains": [],
+            "min_items": 1
+          },
+          "id": "filter_priority",
+          "method": "GET",
+          "path": "/api/tasks?priority=high"
+        }
+      ],
+      "default_envelope_fields": [
+        "requestId",
+        "created",
+        "code",
+        "message"
+      ]
+    },
+    "browser_flow": {
+      "journeys": [
+        {
+          "journey_id": "J1",
+          "steps": [
+            {
+              "kind": "goto",
+              "url": "/"
+            },
+            {
+              "kind": "select",
+              "selector": "[data-testid=priority]",
+              "value": "high"
+            },
+            {
+              "kind": "fill",
+              "selector": "[data-testid=task-title]",
+              "value": "Ship release"
+            },
+            {
+              "kind": "click",
+              "selector": "[data-testid=add-task]"
+            },
+            {
+              "kind": "select",
+              "selector": "[data-testid=priority-filter]",
+              "value": "high"
+            },
+            {
+              "kind": "expect_text",
+              "selector": "[data-testid=task-list]",
+              "text": "Ship release"
+            },
+            {
+              "kind": "expect_url",
+              "url": "/?priority=high"
+            }
+          ]
+        }
+      ]
+    },
+    "code_quality": {
+      "conventions": []
+    },
+    "convention_compliance": {
+      "conventions": [
+        "Keep API handlers separate from page rendering",
+        "Use data-testid for frozen browser selectors"
+      ]
+    },
+    "diff_hygiene": {
+      "allowed_generated_paths": []
+    },
+    "regression_guard": {
+      "protected_anchors": [
+        {
+          "contains": "/api/tasks",
+          "id": "task_api_route",
+          "path": "app/routes/tasks.py"
+        }
+      ],
+      "replay_ids": [
+        "list",
+        "create",
+        "update"
+      ],
+      "source_case_id": "todo_case_1"
+    },
+    "runtime_behavior": {
+      "build_steps": [
+        "syntax"
+      ],
+      "health_checks": [
+        "api",
+        "web"
+      ],
+      "probe_ids": [
+        "create_priority",
+        "filter_priority",
+        "case1_replay"
+      ]
+    },
+    "spec_coverage": {
+      "requirements": [
+        {
+          "req_id": "R1",
+          "text": "Priority can be assigned"
+        },
+        {
+          "req_id": "R2",
+          "text": "Priority filter works"
+        },
+        {
+          "req_id": "R3",
+          "text": "Case 1 behavior remains intact"
+        }
+      ]
+    }
+  },
+  "input_digest": "5d4f90e0bfe0631bfa88e2f95d4e15ed1ad3c030ac94606a23ab023c42b0e7cb",
+  "inputs": {
+    "case_digest": "1e57ae37646d6bfb7ca122225ee44b3886a4dbbd770c6d3fd0a03d1746b9027e",
+    "generator_config_digest": "fictional-example-generator-v1",
+    "spec_digest": "5c3c5d2c263da02447397bfb2c60ddcc6841d7768f8a39500a3d57383b9f2fbe"
+  },
+  "schema_version": "harnesseval_c.preregistration.v1"
+}

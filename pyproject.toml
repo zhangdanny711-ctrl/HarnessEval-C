@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "harnesseval-c"
+version = "0.1.0"
+description = "Evidence-grounded evaluation harness for coding agents"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "License pending release-owner review"}
+authors = [{name = "HarnessEval-C contributors"}]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+harnesseval-c = "harnesseval_c.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+

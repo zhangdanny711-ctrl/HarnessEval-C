@@ -1,0 +1,165 @@
+{
+  "artifact_digest": "97a56f42f9531cac2578fab171d235210db06007c889ff28b2bbcb3628484b81",
+  "case_id": "todo_case_1",
+  "components": {
+    "api_contract": {
+      "contracts": [
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "OK"
+            },
+            "http_status": 200,
+            "message_contains": []
+          },
+          "id": "list_tasks",
+          "method": "GET",
+          "path": "/api/tasks"
+        },
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "CREATED"
+            },
+            "http_status": 201,
+            "message_contains": [
+              "created"
+            ]
+          },
+          "id": "create_task",
+          "method": "POST",
+          "path": "/api/tasks",
+          "request": {
+            "title": "Write docs"
+          }
+        },
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "INVALID_INPUT"
+            },
+            "http_status": 400,
+            "message_contains": [
+              "title",
+              "required"
+            ]
+          },
+          "id": "blank_title",
+          "method": "POST",
+          "path": "/api/tasks",
+          "request": {
+            "title": "  "
+          }
+        }
+      ],
+      "default_envelope_fields": [
+        "requestId",
+        "created",
+        "code",
+        "message"
+      ]
+    },
+    "browser_flow": {
+      "journeys": [
+        {
+          "journey_id": "J1",
+          "steps": [
+            {
+              "kind": "goto",
+              "url": "/"
+            },
+            {
+              "kind": "fill",
+              "selector": "[data-testid=task-title]",
+              "value": "Write docs"
+            },
+            {
+              "kind": "click",
+              "selector": "[data-testid=add-task]"
+            },
+            {
+              "kind": "expect_text",
+              "selector": "[data-testid=task-list]",
+              "text": "Write docs"
+            },
+            {
+              "kind": "click",
+              "selector": "[data-testid=toggle-task]"
+            },
+            {
+              "kind": "expect_visible",
+              "selector": "[data-testid=task-complete]"
+            }
+          ]
+        }
+      ]
+    },
+    "code_quality": {
+      "conventions": []
+    },
+    "convention_compliance": {
+      "conventions": [
+        "Keep API handlers separate from page rendering",
+        "Use data-testid for frozen browser selectors"
+      ]
+    },
+    "diff_hygiene": {
+      "allowed_generated_paths": []
+    },
+    "runtime_behavior": {
+      "build_steps": [
+        "syntax"
+      ],
+      "health_checks": [
+        "api",
+        "web"
+      ],
+      "probe_ids": [
+        "list",
+        "create",
+        "update"
+      ]
+    },
+    "spec_coverage": {
+      "requirements": [
+        {
+          "req_id": "R1",
+          "text": "Required behavior is implemented"
+        },
+        {
+          "req_id": "R2",
+          "text": "Invalid input is rejected"
+        },
+        {
+          "req_id": "R3",
+          "text": "Visible UI flow works"
+        }
+      ]
+    }
+  },
+  "input_digest": "87e573220fa530fc76cacf27997eb0d4765a88710ccb84ba934783045110a581",
+  "inputs": {
+    "case_digest": "c3774166c02c2d69c3110327d3c381caea0d8f34d2c5c42f41fdd49a486aebaf",
+    "generator_config_digest": "fictional-example-generator-v1",
+    "spec_digest": "c12ed9d503dc2e1a319c6c37f3031d078a268ffe95a2d57988b0b6c47e05e779"
+  },
+  "schema_version": "harnesseval_c.preregistration.v1"
+}
