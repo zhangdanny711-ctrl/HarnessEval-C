@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Evidence-grounded evaluation harness for coding agents"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "License pending release-owner review"}
+license = {file = "LICENSE"}
 authors = [{name = "HarnessEval-C contributors"}]
 dependencies = []
 
@@ -24,4 +24,3 @@ where = ["src"]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-

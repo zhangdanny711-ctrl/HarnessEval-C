@@ -81,9 +81,8 @@ The public package intentionally avoids a universal rollout adapter. The small
 `CommandAgentAdapter` accepts an explicit argv template so users can integrate a
 CLI agent without adding provider assumptions to the evaluator.
 
-## License status
+## License
 
-A release license has not yet been selected. See [PROVENANCE.md](PROVENANCE.md)
-before redistributing. Apache-2.0 is a reasonable intended license for this new
-implementation once the repository owner completes an asset and authorship review.
-
+HarnessEval-C is released under the [Apache License 2.0](LICENSE). See
+[PROVENANCE.md](PROVENANCE.md) for the public release boundary and implementation
+provenance.
