@@ -1,5 +1,7 @@
 # HarnessEval-C
 
+[![Tests](https://github.com/zhangdanny711-ctrl/HarnessEval-C/actions/workflows/tests.yml/badge.svg)](https://github.com/zhangdanny711-ctrl/HarnessEval-C/actions/workflows/tests.yml)
+
 HarnessEval-C is a reusable, evidence-grounded evaluation harness for coding
 agents working on full-stack software engineering tasks. It freezes what will
 be checked before a subject rollout is inspected, executes deterministic and
@@ -19,7 +21,7 @@ Planner + Preregistration
     ↓
 Frozen Plan / EvalSpec
     ↓
-Coding Agent Rollout
+Coding Agent Rollout / Subject
     ↓
 Skill Registry → selected Skills execute frozen checks
     ↓
@@ -29,6 +31,35 @@ Core / Observation → Final
     ↓
 Evidence Tree → fail-closed validation
 ```
+
+HarnessEval-C is designed for coding-agent evaluation. The public ReadLater
+showcase evaluates an included subject implementation; no coding-agent rollout
+is bundled with the repository.
+
+## Recorded showcase
+
+The committed ReadLater result is a real local evaluation of the included
+fictional full-stack subject.
+
+| Result | Score / Status |
+|---|---:|
+| Spec Coverage | 1.00 |
+| Runtime Behavior | 1.00 |
+| API Contract | 1.00 |
+| Browser Flow | 1.00 |
+| Diff Hygiene | 1.00 |
+| **Core** | **1.00** |
+| **Observation** | **1.00** |
+| **Final** | **1.00** |
+| Validation | `valid` |
+
+The run records real local HTTP/runtime probes, four API contracts, a six-step
+Playwright browser journey, step-level Evidence Tree evidence, and fail-closed
+validation. It does not use a remote LLM judge.
+
+[Showcase guide](examples/readlater/README.md) ·
+[Evaluation summary](examples/readlater/results/summary.md) ·
+[Evidence Tree](examples/readlater/results/evidence_tree.json)
 
 The built-in score-bearing Skills are:
 
@@ -55,14 +86,30 @@ runtime probes, API contracts, browser journeys, regression checks, and an
 explicitly illustrative Evidence Tree. No evaluated rollout is included.
 
 [`examples/readlater`](examples/readlater/README.md) is a separate, recorded
-showcase run. It contains one fictional full-stack Case, an independently built
-subject implementation, frozen inputs, real local HTTP and browser execution
-evidence, per-Skill scores, and a validated Evidence Tree.
+showcase of one fictional full-stack Case. It evaluates the included subject
+implementation locally and contains no coding-agent rollout.
+
+## Quick start
+
+Install HarnessEval-C and run the Python test suite:
 
 ```bash
 python -m pip install -e '.[test]'
-python -m harnesseval_c verify-example examples/todo
 pytest -q
+```
+
+Verify Todo's illustrative frozen artifact walkthrough:
+
+```bash
+python -m harnesseval_c verify-example examples/todo
+```
+
+Reproduce the recorded ReadLater showcase locally:
+
+```bash
+npm install --prefix examples/readlater
+python examples/readlater/freeze_case.py
+python examples/readlater/run_evaluation.py
 ```
 
 ## Design invariants
