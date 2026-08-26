@@ -1,0 +1,36 @@
+{
+  "case_id": "readlater_case_1",
+  "input_digest": "cffaf16287d4c71b2b93a9a11ba457363e9aca9462f33bfdacf5e3917841532c",
+  "schema_version": "harnesseval_c.skill_plan.v1",
+  "selected_skills": [
+    {
+      "reason": "Trace all five frozen SPEC requirements",
+      "role": "core",
+      "skill_id": "spec_coverage"
+    },
+    {
+      "reason": "Build, boot, and exercise state transitions",
+      "role": "core",
+      "skill_id": "runtime_behavior"
+    },
+    {
+      "reason": "Verify the four frozen HTTP contracts",
+      "role": "core",
+      "skill_id": "api_contract"
+    },
+    {
+      "reason": "Exercise the user-visible save/read flow",
+      "role": "core",
+      "skill_id": "browser_flow"
+    },
+    {
+      "reason": "Record deterministic subject-scope hygiene checks",
+      "role": "observation",
+      "skill_id": "diff_hygiene"
+    }
+  ],
+  "validation": {
+    "selection_modified": false,
+    "status": "ok"
+  }
+}

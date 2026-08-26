@@ -16,7 +16,7 @@ sections were carried into this tree: `io.py`, `planner.py`, `scoring.py`,
 `skills/spec_coverage.py`, and `validation.py` were independently rewritten
 around the required HarnessEval-C behavior.
 
-This note is attribution and provenance, not a legal determination. Before a
-LICENSE is added, the owner should confirm authorship of all remaining files and
-choose the intended terms. The fictional Todo text and representative JSON were
-created solely for this repository.
+This repository is released under the Apache License 2.0 included in `LICENSE`.
+The fictional Todo walkthrough and ReadLater showcase—including their SPECs,
+scaffolds, frozen evaluation inputs, and public example evidence—were created
+solely for this repository and do not migrate private benchmark material.

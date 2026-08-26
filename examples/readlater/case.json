@@ -1,0 +1,21 @@
+{
+  "case_id": "readlater_case_1",
+  "taxonomy": {
+    "probe_family": "existing_feature_build"
+  },
+  "model_facing": {
+    "task": "Implement the fictional ReadLater application described by the SPEC.",
+    "initial_observation": "A tiny standard-library web scaffold serves one placeholder page.",
+    "resources": [
+      "spec/readlater.md"
+    ]
+  },
+  "evaluation": {
+    "required_skills": [
+      "spec_coverage",
+      "runtime_behavior",
+      "api_contract",
+      "browser_flow"
+    ]
+  }
+}

@@ -1,7 +1,9 @@
 from harnesseval_c.http_assertions import check_http_response
 from harnesseval_c.skills.api_contract import evaluate as api
 from harnesseval_c.skills.browser_flow import evaluate as browser
+from harnesseval_c.skills.observation import evaluate as observation
 from harnesseval_c.skills.runtime_behavior import evaluate as runtime
+from harnesseval_c.skills import default_registry
 
 
 def test_message_contains_checks_every_substring_and_envelope_is_configurable():
@@ -41,3 +43,69 @@ def test_api_score_is_bounded_by_contract_pass_rate():
                               "bad": {"status": 500, "body": {"code": "ERR", "message": "bad"}}}}
     assert api(config, evidence, 1.0)["score"] == 0.5
 
+
+def test_semantic_required_observation_fails_closed_without_semantic_score():
+    evidence = {"checks": [
+        {"id": "syntax", "passed": True},
+        {"id": "source_hygiene", "passed": True},
+    ]}
+    result = observation({"semantic_required": True}, evidence, None)
+    assert result["status"] == "invalid"
+    assert result["score"] is None
+
+
+def test_observation_without_any_evidence_fails_closed():
+    result = observation({"semantic_required": False}, {}, None)
+    assert result["status"] == "invalid"
+    assert result["score"] is None
+
+
+def test_deterministic_only_observation_still_scores_without_semantic_score():
+    evidence = {"checks": [
+        {"id": "syntax", "passed": True},
+        {"id": "source_hygiene", "passed": True},
+    ]}
+    result = observation({"semantic_required": False}, evidence, None)
+    assert result["status"] == "ok"
+    assert result["score"] == 1.0
+    assert result["metrics"]["semantic_judge_used"] is False
+
+
+def test_semantic_judgment_can_only_lower_deterministic_observation():
+    evidence = {"checks": [{"id": "syntax", "passed": True}]}
+    result = observation({"semantic_required": True}, evidence, 0.6)
+    assert result["status"] == "ok"
+    assert result["score"] == 0.6
+
+
+def test_registry_enforces_semantic_review_for_code_quality():
+    evaluator = default_registry().get("code_quality").evaluator
+    result = evaluator(
+        {"semantic_required": False},
+        {"checks": [{"id": "syntax", "passed": True}]},
+        None,
+    )
+    assert result["status"] == "invalid"
+    assert result["score"] is None
+
+
+def test_code_quality_fails_closed_without_deterministic_checks():
+    evaluator = default_registry().get("code_quality").evaluator
+    for evidence in ({}, {"checks": []}):
+        result = evaluator({}, evidence, 1.0)
+        assert result["status"] == "invalid"
+        assert result["score"] is None
+
+
+def test_code_quality_with_both_evidence_sources_is_bounded_normally():
+    evaluator = default_registry().get("code_quality").evaluator
+    result = evaluator(
+        {},
+        {"checks": [
+            {"id": "syntax", "passed": True},
+            {"id": "source_hygiene", "passed": False},
+        ]},
+        1.0,
+    )
+    assert result["status"] == "ok"
+    assert result["score"] == 0.5

@@ -1,0 +1,501 @@
+{
+  "case_id": "readlater_case_1",
+  "evidence_digest": "5bb607a8eb12d6ee75b82db4a950ffad0759f67e84473cd986f87060b82b686e",
+  "frozen_inputs": {
+    "plan_digest": "c8439fe40b99e8f5808ac720a419e30c6a909457959f5853e9f8c50579a69a9c",
+    "preregistration_digest": "1466a131d1698b5d0813fe722a24ce18905e756b70a64d7bc345e57aea2f0546"
+  },
+  "headline": {
+    "core_score": 1.0,
+    "evaluation_status": "valid",
+    "final_score": 1.0,
+    "observation_score": 1.0
+  },
+  "plan": [
+    {
+      "reason": "Trace all five frozen SPEC requirements",
+      "role": "core",
+      "skill_id": "spec_coverage"
+    },
+    {
+      "reason": "Build, boot, and exercise state transitions",
+      "role": "core",
+      "skill_id": "runtime_behavior"
+    },
+    {
+      "reason": "Verify the four frozen HTTP contracts",
+      "role": "core",
+      "skill_id": "api_contract"
+    },
+    {
+      "reason": "Exercise the user-visible save/read flow",
+      "role": "core",
+      "skill_id": "browser_flow"
+    },
+    {
+      "reason": "Record deterministic subject-scope hygiene checks",
+      "role": "observation",
+      "skill_id": "diff_hygiene"
+    }
+  ],
+  "recording": {
+    "kind": "real_local_execution",
+    "remote_judge_used": false,
+    "subject_directory_digest": "16a4d253b4aca25d8e4cbb5d781ae8782affcb8945a58b52260b06961d76e10d"
+  },
+  "schema_version": "harnesseval_c.evidence_tree.v1",
+  "skills": [
+    {
+      "diagnostics": {},
+      "evidence": {
+        "requirements": {
+          "R1": {
+            "detectors": [
+              "A1_SAVE"
+            ],
+            "passed": true
+          },
+          "R2": {
+            "detectors": [
+              "A2_LIST"
+            ],
+            "passed": true
+          },
+          "R3": {
+            "detectors": [
+              "A3_MARK_READ"
+            ],
+            "passed": true
+          },
+          "R4": {
+            "detectors": [
+              "A4_REJECT_BLANK"
+            ],
+            "passed": true
+          },
+          "R5": {
+            "detectors": [
+              "J1"
+            ],
+            "passed": true
+          }
+        }
+      },
+      "metrics": {
+        "requirement_pass_rate": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "spec_coverage",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "builds": [
+          {
+            "elapsed_seconds": 0.026188,
+            "exit_code": 0,
+            "name": "python_compile",
+            "passed": true,
+            "stderr": "",
+            "stdout": ""
+          },
+          {
+            "elapsed_seconds": 0.033896,
+            "exit_code": 0,
+            "name": "javascript_syntax",
+            "passed": true,
+            "stderr": "",
+            "stdout": ""
+          }
+        ],
+        "health": [
+          {
+            "name": "http_health",
+            "passed": true,
+            "response": {
+              "body": {
+                "code": "OK",
+                "created": "2026-08-26T10:23:05.682538+00:00",
+                "data": null,
+                "message": "healthy",
+                "requestId": "cfd75da6-5153-43b0-8617-5f42e334ff06"
+              },
+              "status": 200
+            }
+          }
+        ],
+        "probes": [
+          {
+            "id": "P1_SAVE",
+            "passed": true,
+            "response": {
+              "body": {
+                "code": "CREATED",
+                "created": "2026-08-26T10:23:05.684036+00:00",
+                "data": {
+                  "id": 1,
+                  "read": false,
+                  "title": "Runtime Probe Article"
+                },
+                "message": "article saved",
+                "requestId": "f22bc4e9-1bb9-41ad-9902-2b190d35b598"
+              },
+              "status": 201
+            }
+          },
+          {
+            "id": "P2_LIST",
+            "passed": true,
+            "response": {
+              "body": {
+                "code": "OK",
+                "created": "2026-08-26T10:23:05.685118+00:00",
+                "data": [
+                  {
+                    "id": 1,
+                    "read": false,
+                    "title": "Runtime Probe Article"
+                  }
+                ],
+                "message": "articles listed",
+                "requestId": "3af7cf26-0501-4e31-b563-0fd7c251e8b4"
+              },
+              "status": 200
+            }
+          },
+          {
+            "id": "P3_MARK_READ",
+            "passed": true,
+            "response": {
+              "body": {
+                "code": "OK",
+                "created": "2026-08-26T10:23:05.686139+00:00",
+                "data": {
+                  "id": 1,
+                  "read": true,
+                  "title": "Runtime Probe Article"
+                },
+                "message": "article marked read",
+                "requestId": "d87fb4f4-20de-47f6-8d87-074e378f654f"
+              },
+              "status": 200
+            }
+          },
+          {
+            "id": "P4_REJECT_BLANK",
+            "passed": true,
+            "response": {
+              "body": {
+                "code": "INVALID_INPUT",
+                "created": "2026-08-26T10:23:05.687125+00:00",
+                "data": null,
+                "message": "title is required",
+                "requestId": "2785e290-e4e4-4286-b089-f82aa6beb473"
+              },
+              "status": 400
+            }
+          }
+        ]
+      },
+      "metrics": {
+        "boot_ok": true,
+        "build_ok": true,
+        "deterministic_upper_bound": 1.0,
+        "probe_pass_rate": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "runtime_behavior",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "contracts": [
+          {
+            "checks": [
+              {
+                "check": "http_status",
+                "passed": true
+              },
+              {
+                "check": "envelope_fields",
+                "passed": true
+              },
+              {
+                "check": "equals:code",
+                "passed": true
+              },
+              {
+                "check": "equals:data.title",
+                "passed": true
+              }
+            ],
+            "id": "A1_SAVE",
+            "observed": {
+              "body": {
+                "code": "CREATED",
+                "created": "2026-08-26T10:23:05.749062+00:00",
+                "data": {
+                  "id": 1,
+                  "read": false,
+                  "title": "API Contract Article"
+                },
+                "message": "article saved",
+                "requestId": "654d54e6-dbb6-4ee0-bc37-7193cc24fae3"
+              },
+              "status": 201
+            },
+            "passed": true
+          },
+          {
+            "checks": [
+              {
+                "check": "http_status",
+                "passed": true
+              },
+              {
+                "check": "envelope_fields",
+                "passed": true
+              },
+              {
+                "check": "equals:code",
+                "passed": true
+              },
+              {
+                "check": "min_items",
+                "passed": true
+              }
+            ],
+            "id": "A2_LIST",
+            "observed": {
+              "body": {
+                "code": "OK",
+                "created": "2026-08-26T10:23:05.750008+00:00",
+                "data": [
+                  {
+                    "id": 1,
+                    "read": false,
+                    "title": "API Contract Article"
+                  }
+                ],
+                "message": "articles listed",
+                "requestId": "5e557a39-82f9-4e21-8a3e-e84fc274ec92"
+              },
+              "status": 200
+            },
+            "passed": true
+          },
+          {
+            "checks": [
+              {
+                "check": "http_status",
+                "passed": true
+              },
+              {
+                "check": "envelope_fields",
+                "passed": true
+              },
+              {
+                "check": "equals:code",
+                "passed": true
+              },
+              {
+                "check": "equals:data.read",
+                "passed": true
+              }
+            ],
+            "id": "A3_MARK_READ",
+            "observed": {
+              "body": {
+                "code": "OK",
+                "created": "2026-08-26T10:23:05.751022+00:00",
+                "data": {
+                  "id": 1,
+                  "read": true,
+                  "title": "API Contract Article"
+                },
+                "message": "article marked read",
+                "requestId": "08a3fc9d-56bb-4c19-a995-fc99e979e361"
+              },
+              "status": 200
+            },
+            "passed": true
+          },
+          {
+            "checks": [
+              {
+                "check": "http_status",
+                "passed": true
+              },
+              {
+                "check": "envelope_fields",
+                "passed": true
+              },
+              {
+                "check": "equals:code",
+                "passed": true
+              },
+              {
+                "check": "message_contains:title",
+                "passed": true
+              },
+              {
+                "check": "message_contains:required",
+                "passed": true
+              }
+            ],
+            "id": "A4_REJECT_BLANK",
+            "observed": {
+              "body": {
+                "code": "INVALID_INPUT",
+                "created": "2026-08-26T10:23:05.752048+00:00",
+                "data": null,
+                "message": "title is required",
+                "requestId": "10fce664-3a67-4eb4-8a21-775fc6af6c06"
+              },
+              "status": 400
+            },
+            "passed": true
+          }
+        ]
+      },
+      "metrics": {
+        "contract_pass_rate": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "api_contract",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "automation": {
+          "browser_channel": "chrome",
+          "engine": "Playwright",
+          "exit_code": 0,
+          "headless": true
+        },
+        "journeys": [
+          {
+            "action_pass_rate": 1.0,
+            "assertion_pass_rate": 1.0,
+            "journey_id": "J1",
+            "passed": true,
+            "steps": [
+              {
+                "detail": {
+                  "pathname": "/"
+                },
+                "kind": "goto",
+                "passed": true,
+                "url": "/"
+              },
+              {
+                "detail": {
+                  "selector": "[data-testid=article-title]"
+                },
+                "kind": "fill",
+                "passed": true,
+                "selector": "[data-testid=article-title]",
+                "value": "Browser Evidence Article"
+              },
+              {
+                "detail": {
+                  "selector": "[data-testid=save-article]"
+                },
+                "kind": "click",
+                "passed": true,
+                "selector": "[data-testid=save-article]"
+              },
+              {
+                "detail": {
+                  "expected_text": "Browser Evidence Article",
+                  "selector": "[data-testid=reading-queue]"
+                },
+                "kind": "expect_text",
+                "passed": true,
+                "selector": "[data-testid=reading-queue]",
+                "text": "Browser Evidence Article"
+              },
+              {
+                "detail": {
+                  "selector": "[data-title='Browser Evidence Article'] [data-testid=mark-read]"
+                },
+                "kind": "click",
+                "passed": true,
+                "selector": "[data-title='Browser Evidence Article'] [data-testid=mark-read]"
+              },
+              {
+                "detail": {
+                  "selector": "[data-title='Browser Evidence Article'][data-read='true']"
+                },
+                "kind": "expect_visible",
+                "passed": true,
+                "selector": "[data-title='Browser Evidence Article'][data-read='true']"
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "assertion_correctness": 1.0
+      },
+      "role": "core",
+      "score": 1.0,
+      "skill_id": "browser_flow",
+      "status": "ok"
+    },
+    {
+      "diagnostics": {},
+      "evidence": {
+        "checks": [
+          {
+            "id": "python_syntax",
+            "passed": true
+          },
+          {
+            "id": "javascript_syntax",
+            "passed": true
+          },
+          {
+            "id": "no_placeholder_markers",
+            "passed": true
+          },
+          {
+            "id": "no_dynamic_code_execution",
+            "passed": true
+          },
+          {
+            "id": "standard_library_backend",
+            "observed_import_roots": [
+              "__future__",
+              "argparse",
+              "datetime",
+              "http",
+              "json",
+              "pathlib",
+              "threading",
+              "urllib",
+              "uuid"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "metrics": {
+        "configured_conventions": 3,
+        "deterministic_check_rate": 1.0,
+        "semantic_judge_used": false,
+        "semantic_required": false
+      },
+      "role": "observation",
+      "score": 1.0,
+      "skill_id": "diff_hygiene",
+      "status": "ok"
+    }
+  ]
+}

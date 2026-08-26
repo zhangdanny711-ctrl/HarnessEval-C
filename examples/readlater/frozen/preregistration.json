@@ -1,0 +1,225 @@
+{
+  "artifact_digest": "1466a131d1698b5d0813fe722a24ce18905e756b70a64d7bc345e57aea2f0546",
+  "case_id": "readlater_case_1",
+  "components": {
+    "api_contract": {
+      "contracts": [
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "CREATED",
+              "data.title": "API Contract Article"
+            },
+            "http_status": 201,
+            "message_contains": []
+          },
+          "id": "A1_SAVE",
+          "method": "POST",
+          "path": "/api/articles",
+          "request": {
+            "title": "API Contract Article"
+          }
+        },
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "OK"
+            },
+            "http_status": 200,
+            "items_path": "data",
+            "message_contains": [],
+            "min_items": 1
+          },
+          "id": "A2_LIST",
+          "method": "GET",
+          "path": "/api/articles"
+        },
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "OK",
+              "data.read": true
+            },
+            "http_status": 200,
+            "message_contains": []
+          },
+          "id": "A3_MARK_READ",
+          "method": "PATCH",
+          "path": "/api/articles/1/read"
+        },
+        {
+          "expect": {
+            "envelope_fields": [
+              "requestId",
+              "created",
+              "code",
+              "message"
+            ],
+            "equals": {
+              "code": "INVALID_INPUT"
+            },
+            "http_status": 400,
+            "message_contains": [
+              "title",
+              "required"
+            ]
+          },
+          "id": "A4_REJECT_BLANK",
+          "method": "POST",
+          "path": "/api/articles",
+          "request": {
+            "title": "  "
+          }
+        }
+      ],
+      "default_envelope_fields": [
+        "requestId",
+        "created",
+        "code",
+        "message"
+      ]
+    },
+    "browser_flow": {
+      "journeys": [
+        {
+          "description": "Save an article, see it in the queue, and mark it read",
+          "journey_id": "J1",
+          "steps": [
+            {
+              "kind": "goto",
+              "url": "/"
+            },
+            {
+              "kind": "fill",
+              "selector": "[data-testid=article-title]",
+              "value": "Browser Evidence Article"
+            },
+            {
+              "kind": "click",
+              "selector": "[data-testid=save-article]"
+            },
+            {
+              "kind": "expect_text",
+              "selector": "[data-testid=reading-queue]",
+              "text": "Browser Evidence Article"
+            },
+            {
+              "kind": "click",
+              "selector": "[data-title='Browser Evidence Article'] [data-testid=mark-read]"
+            },
+            {
+              "kind": "expect_visible",
+              "selector": "[data-title='Browser Evidence Article'][data-read='true']"
+            }
+          ]
+        }
+      ]
+    },
+    "diff_hygiene": {
+      "conventions": [
+        "Keep the subject dependency-free",
+        "Exclude placeholder and dynamic-evaluation constructs",
+        "Limit the subject snapshot to files required by the SPEC"
+      ],
+      "semantic_required": false
+    },
+    "runtime_behavior": {
+      "build_steps": [
+        "python_compile",
+        "javascript_syntax"
+      ],
+      "health_checks": [
+        "http_health"
+      ],
+      "probes": [
+        {
+          "body": {
+            "title": "Runtime Probe Article"
+          },
+          "expect": {
+            "http_status": 201
+          },
+          "id": "P1_SAVE",
+          "method": "POST",
+          "path": "/api/articles"
+        },
+        {
+          "expect": {
+            "http_status": 200
+          },
+          "id": "P2_LIST",
+          "method": "GET",
+          "path": "/api/articles"
+        },
+        {
+          "expect": {
+            "http_status": 200
+          },
+          "id": "P3_MARK_READ",
+          "method": "PATCH",
+          "path": "/api/articles/1/read"
+        },
+        {
+          "body": {
+            "title": "   "
+          },
+          "expect": {
+            "http_status": 400
+          },
+          "id": "P4_REJECT_BLANK",
+          "method": "POST",
+          "path": "/api/articles"
+        }
+      ]
+    },
+    "spec_coverage": {
+      "requirements": [
+        {
+          "req_id": "R1",
+          "text": "Save an article with a non-blank title"
+        },
+        {
+          "req_id": "R2",
+          "text": "List saved articles"
+        },
+        {
+          "req_id": "R3",
+          "text": "Mark a saved article as read"
+        },
+        {
+          "req_id": "R4",
+          "text": "Reject blank or whitespace-only titles"
+        },
+        {
+          "req_id": "R5",
+          "text": "Complete the same flow through the browser UI"
+        }
+      ]
+    }
+  },
+  "input_digest": "6b6be01dbba635546609626835a651904c6935238ed00b967d538ed76e2ffa68",
+  "inputs": {
+    "case_digest": "d0b65cec6c0f9385a522934bb7c84b26f72a44a1a2b9967d108ab5de4ae9b54f",
+    "generator_config_digest": "dadfe6d963cd7f4cde28250acabcc4bdcc92373a95a80ec9dc71a0fa2493cfba",
+    "spec_digest": "16345f56ed156ef4850ab01857f6e1ff1222bbfac71d3d4b389af3e310eb70f0"
+  },
+  "schema_version": "harnesseval_c.preregistration.v1"
+}

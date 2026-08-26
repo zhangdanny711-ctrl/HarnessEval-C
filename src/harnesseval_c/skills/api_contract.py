@@ -13,9 +13,12 @@ def evaluate(config: dict[str, Any], evidence: dict[str, Any], semantic_score: f
         response = responses.get(contract["id"]) or {}
         checked = check_http_response(int(response.get("status", 0)), response.get("body"),
                                       contract.get("expect") or {}, defaults)
-        results.append({"id": contract["id"], **checked})
+        results.append({
+            "id": contract["id"],
+            "observed": {"status": response.get("status"), "body": response.get("body")},
+            **checked,
+        })
     rate = sum(item["passed"] for item in results) / len(results) if results else 0.0
     semantic = rate if semantic_score is None else max(0.0, min(1.0, float(semantic_score)))
     return {"status": "ok", "score": round(min(rate, semantic), 6),
             "metrics": {"contract_pass_rate": round(rate, 6)}, "evidence": {"contracts": results}}
-

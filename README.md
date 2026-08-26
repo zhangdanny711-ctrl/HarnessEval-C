@@ -5,9 +5,10 @@ agents working on full-stack software engineering tasks. It freezes what will
 be checked before a subject rollout is inspected, executes deterministic and
 semantic skills, preserves an Evidence Tree, and validates results fail-closed.
 
-This public repository contains only an independently implemented framework and
-a fictional Todo benchmark. It contains no real organization, application, or
-agent rollout data.
+This public repository contains an independently implemented framework and
+fully fictional public examples. It contains no real organization, application,
+or agent rollout data. ReadLater is the recorded public showcase run; Todo is an
+illustrative artifact walkthrough.
 
 ## Evaluation flow
 
@@ -45,13 +46,18 @@ Core and Observation are reported separately. Final defaults to an equal-weight
 combination. If any selected score-bearing Skill is missing or invalid, Final is
 `null`; the evaluator never averages over a partial denominator.
 
-## Fictional example
+## Public examples
 
 [`examples/todo`](examples/todo/README.md) demonstrates two sequential cases for
 a made-up task manager: a basic implementation followed by priority filtering.
 It includes SPECs, Case definitions, frozen plans, preregistered requirements,
 runtime probes, API contracts, browser journeys, regression checks, and an
 explicitly illustrative Evidence Tree. No evaluated rollout is included.
+
+[`examples/readlater`](examples/readlater/README.md) is a separate, recorded
+showcase run. It contains one fictional full-stack Case, an independently built
+subject implementation, frozen inputs, real local HTTP and browser execution
+evidence, per-Skill scores, and a validated Evidence Tree.
 
 ```bash
 python -m pip install -e '.[test]'

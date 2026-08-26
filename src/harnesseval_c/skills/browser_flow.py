@@ -25,5 +25,7 @@ def evaluate(config: dict[str, Any], evidence: dict[str, Any], semantic_score: f
     semantic = correctness if semantic_score is None else max(0.0, min(1.0, float(semantic_score)))
     return {"status": "ok", "score": round(min(correctness, semantic), 6),
             "metrics": {"assertion_correctness": round(correctness, 6)},
-            "evidence": {"journeys": journey_results}}
-
+            "evidence": {
+                "automation": evidence.get("automation") or {},
+                "journeys": journey_results,
+            }}
